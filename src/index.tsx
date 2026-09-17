@@ -12,13 +12,6 @@ const MAX = 5
 const BLOCKS = ["\u2581", "\u2582", "\u2583", "\u2584", "\u2585", "\u2586", "\u2587", "\u2588"]
 
 /**
- * 固定蓝色，不走主题。
- * 默认 opencode 主题里 primary 暗色是橙色、secondary 在浅色模式下是紫色，
- * 没有哪个语义 token 能保证"始终是蓝"，所以直接钉死色值。
- */
-const BLUE = "#5c9cf5"
-
-/**
  * 0 输出空格（不画柱子），1..MAX 均匀铺满 ▁..█。
  * 不用 ▁ 表示 0：它在终端字体里细得和空格几乎一样，跟 1 分不开。
  */
@@ -78,9 +71,9 @@ function ToolSpark(props: { api: TuiPluginApi; sessionId: string; buckets: numbe
 
   return (
     <text>
-      <span style={{ fg: BLUE }}>{"tools "}</span>
+      <span style={{ fg: props.api.theme.current.textMuted }}>{"tools "}</span>
       {counts().map((c) => (
-        <span style={{ fg: BLUE }}>{level(c)}</span>
+        <span style={{ fg: props.api.theme.current.secondary }}>{level(c)}</span>
       ))}
     </text>
   )

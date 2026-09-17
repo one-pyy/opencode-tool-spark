@@ -19,9 +19,9 @@ tools ▁▂▄▅▇█
 | 4 | ▇ |
 | ≥ 5 | █（封顶） |
 
-标签与柱子统一使用固定蓝色 `#5c9cf5`，不跟随主题。
+颜色跟随主题：`tools` 标签用 `textMuted`（灰），柱子用 `secondary`（默认 `opencode` 主题暗色下是 `#5c9cf5` 蓝）。
 
-之所以不走主题：默认 `opencode` 主题里 `primary` 暗色是橙色（`#fab283`）、`secondary` 暗色虽是蓝色但浅色模式下是紫色（`#7b5bb6`），`info` 是青色 —— 没有任何语义 token 能保证"始终是蓝"。
+主题 token 在运行时是 `RGBA` 实例（`resolveColor()` 的返回值），直接交给 `fg` 即可，不要自己转成字符串 —— 主题值是对象而非字符串，用 `typeof === "string"` 判断会永远落到兜底色值。
 
 ## 功能 / Features
 
