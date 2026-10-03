@@ -2,7 +2,7 @@
 
 import type { TuiPlugin, TuiPluginApi, TuiPluginModule, TuiSlotContext } from "@opencode-ai/plugin/tui"
 import type { Message } from "@opencode-ai/sdk"
-import { createMemo, createSignal, onCleanup, onMount } from "solid-js"
+import { Show, createMemo, createSignal, onCleanup, onMount } from "solid-js"
 
 const ID = "local.tool-spark"
 
@@ -87,6 +87,14 @@ const tui: TuiPlugin = async (api, options) => {
     slots: {
       session_prompt_right(_ctx: TuiSlotContext, input: { session_id: string }) {
         return <ToolSpark api={api} sessionId={input.session_id} buckets={buckets} />
+      },
+      // 子会话里输入框整块被隐藏，session_prompt_right 不渲染；侧栏在子会话仍可见。
+      sidebar_content(_ctx: TuiSlotContext, input: { session_id: string }) {
+        return (
+          <Show when={api.state.session.get(input.session_id)?.parentID}>
+            <ToolSpark api={api} sessionId={input.session_id} buckets={buckets} />
+          </Show>
+        )
       },
     },
   })
